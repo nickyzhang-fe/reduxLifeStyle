@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import App from '../lifeStyle/App';
 
-import configureStore from '../lifeStyle/configureStore';
+import configureStore from '../lifeStyle/store/configureStore';
 import {Provider} from 'react-redux';
 
 const store = configureStore();

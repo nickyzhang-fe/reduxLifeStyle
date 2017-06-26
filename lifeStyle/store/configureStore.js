@@ -4,7 +4,7 @@
 
 import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import rootReducers from '../lifeStyle/reducers/rootReducers';
+import rootReducers from '../life/reducers/rootReducers';
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 export default function configureStore(initialState) {
     const store = createStoreWithMiddleware(rootReducers, initialState);
