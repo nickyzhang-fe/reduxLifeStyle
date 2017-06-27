@@ -45,10 +45,10 @@ class Util extends Component {
     /*
      * toast
      * */
-    static showToast(value) {
+    static showToastCenter(value) {
         Toast.show(value, {
             duration: Toast.durations.SHORT,
-            position: Toast.positions.BOTTOM,
+            position: Toast.positions.CENTER,
             shadow: true,
             animation: true,
             hideOnPress: true,

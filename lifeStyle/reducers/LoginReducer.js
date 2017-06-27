@@ -2,7 +2,7 @@
  * Created by Cral-Gates on 2017/6/25.
  */
 'use strict';
-import * as types from '../utils/ActionTypes';
+import * as types from '../constants/ActionTypes';
 
 const initialState = {
     loading : false,

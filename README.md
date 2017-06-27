@@ -19,6 +19,10 @@
 
 > 当由用户或者程序触发某一个具体的动作时，Reducer将对Action进行识别, 并返回新的state，最终存储在store中的state发生改变，从而导致界面的变化。
 
+###### 好处
+- 单一数据源：数据只存在于store中，无论是开发还是调试都方便很多
+- state是只读的：只有通过触发action才能修改state
+
 ###### 对于实际的项目来说我们还需要 `combineReducers `、`applyMiddleware`、`Provider`
 
 	
