@@ -37,7 +37,6 @@ class Login extends Component {
 
     render() {
         const {login} = this.props;
-        console.log('40'+login);
         return (
             <View style={styles.container}>
                 <Image source={require('../imgs/logo.png')} style={styles.image}/>
@@ -108,7 +107,7 @@ class Login extends Component {
             Util.showToastCenter('密码为空');
             return;
         }
-        dispatch(performLoginAction(username, password))
+        dispatch(performLoginAction(username, password));
     }
 }
 

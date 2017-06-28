@@ -28,8 +28,6 @@
 - 单一数据源：数据只存在于store中，无论是开发还是调试都方便很多
 - state是只读的：只有通过触发action才能修改state
 
-###### 对于实际的项目来说我们还需要 `combineReducers `、`applyMiddleware`、`Provider`
-
 ##### Provider
 
 > Provider这个模块是作为整个App的容器，在你原有的App Container的基础上再包上一层，它的工作很简单，就是接受Redux的store作为props
@@ -42,8 +40,11 @@
 
 > connect方法的作用是连接react组件和store，也就是说通过connect方法子组件可以获取store中的state和dispatch。redux的connect的含义是可以连接任意函数，这些函数的参数可以注入store、state、dispatch。connect可以将组件和reducer相关联。
 
-##### 组件：
+##### combineReducers
 
+##### applyMiddleware
+
+##### 组件：
 - [react-native-loading-spinner-overlay](https://github.com/joinspontaneous/react-native-loading-spinner-overlay)
 - [react-native-image-crop-picker](https://github.com/ivpusic/react-native-image-crop-picker)
 - [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
@@ -53,4 +54,4 @@
 ##### 参考文章
 [Redux 中文文档](http://cn.redux.js.org/index.html)
 
-[React Redux connect详解](http://www.tuicool.com/articles/MrmYN36)
+[React Redux connect详解](http://cn.redux.js.org/docs/react-redux/api.html)
