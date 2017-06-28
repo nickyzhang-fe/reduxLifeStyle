@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    const {login} = state;
+    const {loginReducer} = state;
     return {
-        login
+        loginReducer
     }
 }
 
