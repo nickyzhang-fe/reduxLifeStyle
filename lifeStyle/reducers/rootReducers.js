@@ -3,7 +3,10 @@
  */
 import {combineReducers} from 'redux';
 import loginReducer from './LoginReducer';
+import registerReducer from './RegisterReducer';
+
 const rootReducers = combineReducers({
-    loginReducer
+    loginReducer,
+    registerReducer
 });
 export default rootReducers;

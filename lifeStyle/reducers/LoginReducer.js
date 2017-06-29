@@ -17,19 +17,16 @@ export default function login(state = initialState, action){
             return Object.assign({}, state, {
                 loading: true
             });
-            break;
         case types.LOGIN_SUCCESS_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 data: action.result
             });
-            break;
         case types.LOGIN_ERROR_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 data: action.result
             });
-            break;
         default:
             return state;
     }

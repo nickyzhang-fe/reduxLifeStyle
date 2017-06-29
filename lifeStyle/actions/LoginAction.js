@@ -15,7 +15,7 @@ export function performLoginAction(username, password) {
     }
 }
 
-function performLogin(subreddit, json) {
+function performLogin() {
     return {
         type: types.LOGIN_PERFORM_ACTION
     }

@@ -40,8 +40,8 @@ class NavigationBar extends Component {
         showRightImage: false,
         leftItemTitle: '返回',
         rightItemTitle: '完成',
-        leftImageSource: require('../img/black-left.png'),
-        rightImageSource: require('../img/sign.png')
+        leftImageSource: require('../imgs/black-left.png'),
+        rightImageSource: require('../imgs/sign.png')
     };
 
     render() {

@@ -20,6 +20,7 @@ import {connect} from 'react-redux';
 import TextButton from '../components/TextButton';
 import {performLoginAction} from '../actions/LoginAction';
 import Util from '../utils/Util';
+import Register from '../containers/Register';
 var username = '';
 var password = '';
 class Login extends Component {
@@ -67,7 +68,7 @@ class Login extends Component {
                         <TextButton
                             text="登录"
                             color={'black'}
-                            onPress={()=> this._login()}
+                            onPress={() => this._login()}
                             backgroundColor={'#FFDE00'}/>
                     </View>
                 </TouchableOpacity>
@@ -82,7 +83,8 @@ class Login extends Component {
                         style={styles.register}
                         text={'用户注册'}
                         color={'#FFDE00'}
-                        backgroundColor={'transparent'}/>
+                        backgroundColor={'transparent'}
+                        onPress={() => this._goRegister()}/>
                 </View>
             </View>
         )
@@ -97,17 +99,25 @@ class Login extends Component {
         console.log('componentDidUpdate');
     }
 
-    _login = ()=> {
-        const {navigator,dispatch} = this.props;
-        if (Util.isEmpty(username)){
+    _login = () => {
+        const {navigator, dispatch} = this.props;
+        if (Util.isEmpty(username)) {
             Util.showToastCenter('用户名为空');
             return;
         }
-        if (Util.isEmpty(password)){
+        if (Util.isEmpty(password)) {
             Util.showToastCenter('密码为空');
             return;
         }
         dispatch(performLoginAction(username, password));
+    };
+
+    _goRegister = () => {
+        const {navigator} = this.props;
+        navigator.push({
+            name: 'register',
+            component: Register
+        })
     }
 }
 
@@ -173,6 +183,8 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
+    console.log('1865');
+    console.log(state);
     const {loginReducer} = state;
     return {
         loginReducer

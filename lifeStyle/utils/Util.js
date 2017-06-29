@@ -69,6 +69,14 @@ class Util extends Component {
         return false;
     }
 
+    static goBack(navigator) {
+        if (navigator && navigator.getCurrentRoutes().length > 1) {
+            navigator.pop();
+            return true;
+        }
+        return false;
+    }
+
     static Format(fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份
@@ -85,7 +93,7 @@ class Util extends Component {
         return fmt;
     };
 
-    static NavGoBack(){
+    static NavGoBack() {
         if (navigator && navigator.getCurrentRoutes().length > 1) {
             navigator.pop();
             return true;
