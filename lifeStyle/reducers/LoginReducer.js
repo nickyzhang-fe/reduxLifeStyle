@@ -10,16 +10,26 @@ const initialState = {
 };
 
 export default function login(state = initialState, action){
+    console.log('13');
+    console.log(action);
     switch (action.type) {
-        case types.PERFORM_LOGIN_ACTION:
+        case types.LOGIN_PERFORM_ACTION:
             return Object.assign({}, state, {
                 loading: true
             });
-        case types.RECEIVE_LOGIN_ACTION:
+            break;
+        case types.LOGIN_SUCCESS_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 data: action.result
             });
+            break;
+        case types.LOGIN_ERROR_ACTION:
+            return Object.assign({}, state, {
+                loading: false,
+                data: action.result
+            });
+            break;
         default:
             return state;
     }
