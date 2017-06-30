@@ -21,11 +21,13 @@ import TextButton from '../components/TextButton';
 import {performLoginAction} from '../actions/LoginAction';
 import Util from '../utils/Util';
 import Register from '../containers/Register';
-var username = '';
-var password = '';
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            username: '',
+            password: ''
+        }
     }
 
     componentWillMount() {
@@ -37,7 +39,7 @@ class Login extends Component {
     }
 
     render() {
-        const {login} = this.props;
+        const {loginReducer} = this.props;
         return (
             <View style={styles.container}>
                 <Image source={require('../imgs/logo.png')} style={styles.image}/>
@@ -49,9 +51,7 @@ class Login extends Component {
                     autoCapitalize={'none'}
                     underlineColorAndroid={'transparent'}
                     textAlign="center"
-                    onChangeText={(text) => {
-                        username = text;
-                    }}/>
+                    onChangeText={(username) => this.setState({username})}/>
                 <View style={styles.long_line}/>
                 <TextInput
                     style={styles.pwd_input}
@@ -60,9 +60,7 @@ class Login extends Component {
                     secureTextEntry={true}
                     underlineColorAndroid={'transparent'}
                     textAlign="center"
-                    onChangeText={(text) => {
-                        password = text;
-                    }}/>
+                    onChangeText={(password) => this.setState({password})}/>
                 <TouchableOpacity onPress={() => this._login()}>
                     <View style={styles.commit}>
                         <TextButton
@@ -101,6 +99,9 @@ class Login extends Component {
 
     _login = () => {
         const {navigator, dispatch} = this.props;
+        console.log(this.props);
+        let username = this.state.username;
+        let password = this.state.password;
         if (Util.isEmpty(username)) {
             Util.showToastCenter('用户名为空');
             return;
@@ -183,8 +184,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    console.log('1865');
-    console.log(state);
     const {loginReducer} = state;
     return {
         loginReducer

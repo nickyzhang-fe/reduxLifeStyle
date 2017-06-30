@@ -5,17 +5,19 @@ import NetUtil from '../utils/NetUtil';
 import * as types from '../constants/ActionTypes';
 import Global from '../constants/Global';
 import Util from '../utils/Util';
+import Register from '../containers/Register';
 
 export function performRegisterAction(params) {
     return (dispatch) => {
         dispatch(performRegister());
         let url = Global.REGISTER;
         NetUtil.postJson(url, params, function (res) {
-            dispatch(successRegister(res));
             if (res.hasOwnProperty('code')) {
+                dispatch(errorRegister(res));
                 Util.showToastCenter(res.error);
             } else {
-                Util.goBack();
+                dispatch(successRegister(res));
+                // Util.goBack();
                 Util.showToastCenter('注册成功');
             }
         })

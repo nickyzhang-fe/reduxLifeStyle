@@ -29,9 +29,8 @@ class Register extends Component {
     }
 
     render() {
-        const {register} = this.props;
-        console.log('3232');
-        console.log(register);
+        const {registerReducer} = this.props;
+        console.log(registerReducer);
         return (
             <View style={styles.container}>
                 <NavigationBar
@@ -65,10 +64,24 @@ class Register extends Component {
                             backgroundColor={'#FFDE00'}/>
                     </TouchableOpacity>
                 </View>
-                {/*<LoadingView*/}
-                    {/*showLoading={register.loading}/>*/}
+                <LoadingView
+                    showLoading={registerReducer.loading}/>
             </View>
         )
+    }
+
+    componentDidUpdate(){
+        const {registerReducer} = this.props;
+        console.log(registerReducer);
+        if (registerReducer.status === 'success'){
+            this._goBack();
+            return false;
+        }
+        return true;
+    }
+
+    componentDidMount(){
+
     }
 
     _register = () => {
@@ -139,6 +152,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
     const {registerReducer} = state;
+    console.log(registerReducer);
     return {
         registerReducer
     }

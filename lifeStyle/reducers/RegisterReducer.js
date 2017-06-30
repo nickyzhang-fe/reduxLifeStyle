@@ -6,25 +6,27 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = {
     loading: false,
+    status: null,
     data: {}
 };
 
 export default function register(state = initialState, action) {
-    console.log('155');
-    console.log(action);
     switch (action.type){
         case types.REGISTER_PERFORM_ACTION:
             return Object.assign({}, state, {
-                loading:true
+                loading:true,
+                status: 'doing'
             });
         case types.REGISTER_SUCCESS_ACTION:
             return Object.assign({}, state, {
                 loading: false,
+                status: 'success',
                 data: action.data
             });
         case types.REGISTER_ERROR_ACTION:
             return Object.assign({}, state, {
                 loading: false,
+                status: 'failed',
                 data: action.data
             });
         default:
