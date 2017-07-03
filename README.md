@@ -55,6 +55,7 @@
 ##### 组件：
 - [react-native-loading-spinner-overlay](https://github.com/joinspontaneous/react-native-loading-spinner-overlay)
 - [react-native-image-crop-picker](https://github.com/ivpusic/react-native-image-crop-picker)
+- [react-native-tab-navigator](https://github.com/happypancake/react-native-tab-navigator)
 - [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 	- npm install react-native-vector-icons --save
 	- react-native link react-native-vector-icons 
@@ -63,3 +64,5 @@
 [Redux 中文文档](http://cn.redux.js.org/index.html)
 
 [React Redux connect详解](http://cn.redux.js.org/docs/react-redux/api.html)
+
+[React Redux 实例教程](http://www.jianshu.com/p/2c43860b0532)

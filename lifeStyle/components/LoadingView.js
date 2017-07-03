@@ -49,10 +49,10 @@ class LoadingView extends Component {
                         {
                             this.props.loadingViewClick ?
                                 <TouchableOpacity onPress={ this.props.loadingViewClick }>
-                                    <Image style={ styles.loadingImage } source={require('../imgs/addimg.png')}/>
+                                    <Image style={ styles.loadingImage } source={require('../imgs/loading.gif')}/>
                                 </TouchableOpacity>
                                 :
-                                <Image style={ styles.loadingImage } source={require('../imgs/addimg.png') }/>
+                                <Image style={ styles.loadingImage } source={require('../imgs/loading.gif') }/>
                         }
                     </View>
                 </View>

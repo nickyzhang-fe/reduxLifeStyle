@@ -54,9 +54,9 @@ class Register extends Component {
                     underlineColorAndroid={'transparent'}
                     textAlign="left"
                     onChangeText={(password) => this.setState({password})}/>
-                <View style={styles.register}
-                      onPress={() => this._register()}>
-                    <TouchableOpacity>
+                <View style={styles.register}>
+                    <TouchableOpacity
+                        onPress={() => this._register()}>
                         <TextButton
                             text="注册"
                             onPress={() => this._register()}
@@ -70,17 +70,17 @@ class Register extends Component {
         )
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         const {registerReducer} = this.props;
         console.log(registerReducer);
-        if (registerReducer.status === 'success'){
+        if (registerReducer.status === 'success') {
             this._goBack();
             return false;
         }
         return true;
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
     }
 
