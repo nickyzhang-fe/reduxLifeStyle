@@ -37,9 +37,6 @@ class GuideView extends Component {
                     onChangePage={(pageId)=> this._onChangePage(pageId)}
                     isLoop={false}
                     autoPlay={false}/>
-                {/*<TouchableOpacity>*/}
-                    {/*<Text>{'dianji'}</Text>*/}
-                {/*</TouchableOpacity>*/}
             </View>
         )
     }
