@@ -5,7 +5,6 @@ import NetUtil from '../utils/NetUtil';
 import * as types from '../constants/ActionTypes';
 import Global from '../constants/Global';
 import Util from '../utils/Util';
-import Register from '../containers/Register';
 
 export function performRegisterAction(params) {
     return (dispatch) => {
@@ -17,7 +16,6 @@ export function performRegisterAction(params) {
                 Util.showToastCenter(res.error);
             } else {
                 dispatch(successRegister(res));
-                // Util.goBack();
                 Util.showToastCenter('注册成功');
             }
         })

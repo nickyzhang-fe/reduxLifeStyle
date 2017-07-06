@@ -3,6 +3,7 @@
  */
 'use strict';
 import React, {Component} from 'react';
+import {Dimensions} from 'react-native';
 import Toast from 'react-native-root-toast';
 
 class Util extends Component {
@@ -69,6 +70,9 @@ class Util extends Component {
         return false;
     }
 
+    /*
+     * 返回
+     * */
     static goBack(navigator) {
         if (navigator && navigator.getCurrentRoutes().length > 1) {
             navigator.pop();
@@ -76,6 +80,17 @@ class Util extends Component {
         }
         return false;
     }
+
+    /*
+     * 屏幕宽高
+     * */
+    static getScreenWidth() {
+        return Dimensions.get('window').width;
+    }
+    static getScreenHeight(){
+        return Dimensions.get('window').height
+    }
+
 
     static Format(fmt) {
         var o = {
@@ -92,15 +107,6 @@ class Util extends Component {
             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     };
-
-    static NavGoBack() {
-        if (navigator && navigator.getCurrentRoutes().length > 1) {
-            navigator.pop();
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
 
 export default Util;

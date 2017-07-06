@@ -16,10 +16,12 @@ import {
     ToastAndroid,
     TouchableOpacity
 } from 'react-native';
+import Util from '../utils/Util';
+import StorageUtil from '../utils/StorageUtil';
+
 import {connect} from 'react-redux';
 import TextButton from '../components/TextButton';
 import {performLoginAction} from '../actions/LoginAction';
-import Util from '../utils/Util';
 import Register from '../containers/Register';
 class Login extends Component {
     constructor(props) {
@@ -94,6 +96,11 @@ class Login extends Component {
     }
 
     componentDidUpdate() {
+        const {loginReducer} = this.props;
+        console.log(loginReducer);
+        if (loginReducer.status === 'success') {
+
+        }
         console.log('componentDidUpdate');
     }
 

@@ -6,10 +6,11 @@ import {
     Navigator
 } from 'react-native';
 import Login from '../lifeStyle/containers/Login';
+import GuideView from '../lifeStyle/guide/GuideView';
 class App extends Component {
     initialRoute = {
-        name: 'login',
-        component: Login,
+        name: 'GuideView',
+        component: GuideView,
     };
 
     configureScene = (route) => {
