@@ -7,7 +7,11 @@ import {
 } from 'react-native';
 import Login from '../lifeStyle/containers/Login';
 import GuideView from '../lifeStyle/guide/GuideView';
+import StorageUtil from './utils/StorageUtil';
+
 class App extends Component {
+
+
     initialRoute = {
         name: 'GuideView',
         component: GuideView,
