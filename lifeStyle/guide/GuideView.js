@@ -30,18 +30,17 @@ class GuideView extends Component {
 
     render() {
         return (
-            <ScrollView
-                contentContainerStyle={styleSheet.container}
-                bounces={false}
-                pagingEnabled={true}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <Image source={require('../imgs/guide/start_i0.png')} style={styleSheet.bgImg}/>
-                <Image source={require('../imgs/guide/start_i1.png')} style={styleSheet.bgImg}/>
-                <Image source={require('../imgs/guide/start_i2.png')} style={styleSheet.bgImg}>
-                    <Text style={styleSheet.text}>{'开启新时代'}</Text>
-                </Image>
-            </ScrollView>
+            <AppIntro
+                onNextBtnClick={() => this.nextBtnHandle}
+                onDoneBtnClick={() => this.doneBtnHandle}
+                onSkipBtnClick={() => this.onSkipBtnHandle}
+                onSlideChange={() => this.onSlideChangeHandle}
+                showSkipButton={true}
+                showDoneButton={true}
+                showDots={true}
+                doneBtnLabel="完成"
+                skipBtnLabel="跳过"
+                pageArray={pageArray}/>
         )
     }
 
@@ -65,53 +64,51 @@ class GuideView extends Component {
     };
 }
 const pageArray = [{
-    title: 'Page 1',
-    description: 'Description 1',
-    img: require('../imgs/guide/start_i0.png'),
+    // title: 'Page 1',
+    // description: 'Description 1',
+    img: require('../imgs/guide/yingdao1.png'),
     imgStyle: {
-        height: 80 * 2.5,
-        width: 109 * 2.5,
+        top: 120,
+        height: 110 * 2.5,
+        width: 110 * 2.5,
     },
-    backgroundColor: '#fa931d',
+    backgroundColor: '#acd6ff',
     fontColor: '#fff',
     level: 10,
 }, {
-    title: 'Page 2',
-    description: 'Description 2',
-    img: require('../imgs/guide/start_i1.png'),
+    // title: 'Page 2',
+    // description: 'Description 2',
+    img: require('../imgs/guide/yingdao2.png'),
     imgStyle: {
-        height: 93 * 2.5,
-        width: 103 * 2.5,
+        top: 120,
+        height: 110 * 2.5,
+        width: 110 * 2.5,
     },
-    backgroundColor: '#a4b602',
+    backgroundColor: '#acd6ff',
     fontColor: '#fff',
     level: 10,
 }, {
-    title: 'Page 3',
-    description: 'Description 3',
-    img: require('../imgs/guide/start_i2.png'),
+    // title: 'Page 3',
+    // description: 'Description 3',
+    img: require('../imgs/guide/yingdao3.png'),
     imgStyle: {
-        height: 93 * 2.5,
-        width: 103 * 2.5,
+        top: 120,
+        height: 110 * 2.5,
+        width: 110 * 2.5,
     },
-    backgroundColor: '#a4b602',
+    backgroundColor: '#acd6ff',
     fontColor: '#fff',
     level: 10,
 }];
 
 const styleSheet = StyleSheet.create({
     container: {
-        width: Util.getScreenWidth()*3,
+        width: Util.getScreenWidth(),
         height: Util.getScreenHeight()
     },
     bgImg: {
         width: Util.getScreenWidth(),
         height: Util.getScreenHeight()
-    },
-    text: {
-        position: 'absolute',
-        bottom: 50,
-        left: 100,
     }
 });
 
