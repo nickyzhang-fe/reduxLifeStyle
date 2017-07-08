@@ -8,10 +8,12 @@ import {
 import Login from '../lifeStyle/containers/Login';
 import GuideView from '../lifeStyle/guide/GuideView';
 import StorageUtil from './utils/StorageUtil';
+import JsonUtil from './utils/JsonUtil';
 
 class App extends Component {
-
-
+    constructor(props){
+        super(props);
+    }
     initialRoute = {
         name: 'GuideView',
         component: GuideView,

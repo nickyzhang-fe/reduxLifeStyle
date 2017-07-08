@@ -15,6 +15,7 @@ import Util from '../utils/Util';
 import ViewPager from 'react-native-viewpager';
 import AppIntro from 'react-native-app-intro';
 import StorageUtil from '../utils/StorageUtil';
+import Login from '../containers/Login';
 
 const GuideImg = [require('../imgs/guide/start_i0.png'),
     require('../imgs/guide/start_i1.png'),
@@ -24,17 +25,17 @@ class GuideView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            guideFlag: false
+            guideFlag: true
         }
     }
 
     render() {
         return (
             <AppIntro
-                onNextBtnClick={() => this.nextBtnHandle}
-                onDoneBtnClick={() => this.doneBtnHandle}
-                onSkipBtnClick={() => this.onSkipBtnHandle}
-                onSlideChange={() => this.onSlideChangeHandle}
+                onNextBtnClick={(index) => this.nextBtnHandle(index)}
+                onDoneBtnClick={() => this.doneBtnHandle()}
+                onSkipBtnClick={(index) => this.onSkipBtnHandle(index)}
+                onSlideChange={(index, total) => this.onSlideChangeHandle(index, total)}
                 showSkipButton={true}
                 showDoneButton={true}
                 showDots={true}
@@ -45,14 +46,17 @@ class GuideView extends Component {
     }
 
     onSkipBtnHandle = (index) => {
-        console.log(index);
+        StorageUtil.save('guideFlag', this.state.guideFlag, function () {
+            console.log('guideFlag')
+        });
+        this._goLogin();
     };
 
     doneBtnHandle = () => {
-        console.log('down');
         StorageUtil.save('guideFlag', this.state.guideFlag, function () {
-            console.log('guideFlag')
-        })
+            console.log('guideFlag');
+        });
+        this._goLogin();
     };
 
     nextBtnHandle = (index) => {
@@ -62,54 +66,45 @@ class GuideView extends Component {
     onSlideChangeHandle = (index, total) => {
         console.log(index, total);
     };
+
+    _goLogin = () => {
+        const {navigator} = this.props;
+        navigator.push({
+            name: 'login',
+            component: Login
+        })
+    }
 }
 const pageArray = [{
-    // title: 'Page 1',
-    // description: 'Description 1',
     img: require('../imgs/guide/yingdao1.png'),
     imgStyle: {
         top: 120,
         height: 110 * 2.5,
         width: 110 * 2.5,
     },
-    backgroundColor: '#acd6ff',
-    fontColor: '#fff',
+    backgroundColor: '#ffde00',
+    fontColor: '#000',
     level: 10,
 }, {
-    // title: 'Page 2',
-    // description: 'Description 2',
     img: require('../imgs/guide/yingdao2.png'),
     imgStyle: {
         top: 120,
         height: 110 * 2.5,
         width: 110 * 2.5,
     },
-    backgroundColor: '#acd6ff',
-    fontColor: '#fff',
+    backgroundColor: '#ffde00',
+    fontColor: '#000',
     level: 10,
 }, {
-    // title: 'Page 3',
-    // description: 'Description 3',
     img: require('../imgs/guide/yingdao3.png'),
     imgStyle: {
         top: 120,
         height: 110 * 2.5,
         width: 110 * 2.5,
     },
-    backgroundColor: '#acd6ff',
-    fontColor: '#fff',
+    backgroundColor: '#ffde00',
+    fontColor: '#000',
     level: 10,
 }];
-
-const styleSheet = StyleSheet.create({
-    container: {
-        width: Util.getScreenWidth(),
-        height: Util.getScreenHeight()
-    },
-    bgImg: {
-        width: Util.getScreenWidth(),
-        height: Util.getScreenHeight()
-    }
-});
 
 export default GuideView;

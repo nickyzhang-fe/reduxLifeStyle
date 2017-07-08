@@ -18,10 +18,16 @@ class StorageUtil extends Component {
     /*
      * 获取
      * */
-    static get(key) {
+    static getJson(key) {
         return AsyncStorage.getItem(key).then((value) => {
             const jsonValue = JsonUtil.strToJson(value);
             return jsonValue;
+        })
+    }
+    static getStr(key) {
+        return AsyncStorage.getItem(key).then((value) => {
+            console.log(value);
+            return value;
         })
     }
     /*
