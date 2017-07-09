@@ -4,9 +4,11 @@
 import {combineReducers} from 'redux';
 import loginReducer from './LoginReducer';
 import registerReducer from './RegisterReducer';
+import homeReducer from './HomeReducer';
 
 const rootReducers = combineReducers({
     loginReducer,
-    registerReducer
+    registerReducer,
+    homeReducer
 });
 export default rootReducers;

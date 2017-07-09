@@ -17,8 +17,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Util from '../utils/Util';
-import StorageUtil from '../utils/StorageUtil';
 import Tabs from '../containers/Tabs';
+import LoadingView from '../components/LoadingView';
 
 import {connect} from 'react-redux';
 import TextButton from '../components/TextButton';
@@ -31,14 +31,6 @@ class Login extends Component {
             username: '',
             password: ''
         };
-    }
-
-    componentWillMount() {
-        console.log('componentWillMount');
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount');
     }
 
     render() {
@@ -87,6 +79,8 @@ class Login extends Component {
                         backgroundColor={'transparent'}
                         onPress={() => this._goRegister()}/>
                 </View>
+                <LoadingView
+                    showLoading={loginReducer.loading}/>
             </View>
         )
     }
@@ -97,16 +91,14 @@ class Login extends Component {
         if (loginReducer.status === 'success') {
             const {navigator} = this.props;
             navigator.push({
-                name: 'tabs',
+                name: 'Tabs',
                 component: Tabs
             })
         }
-        console.log('componentDidUpdate');
     }
 
     _login = () => {
         const {navigator, dispatch} = this.props;
-        console.log(this.props);
         let username = this.state.username;
         let password = this.state.password;
         if (Util.isEmpty(username)) {

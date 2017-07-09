@@ -30,7 +30,6 @@ class Register extends Component {
 
     render() {
         const {registerReducer} = this.props;
-        console.log(registerReducer);
         return (
             <View style={styles.container}>
                 <NavigationBar
@@ -65,23 +64,18 @@ class Register extends Component {
                     </TouchableOpacity>
                 </View>
                 <LoadingView
-                    showLoading={registerReducer.loading}/>
+                    showLoading={registerReducer.registerLoading}/>
             </View>
         )
     }
 
     componentDidUpdate() {
         const {registerReducer} = this.props;
-        console.log(registerReducer);
         if (registerReducer.status === 'success') {
             this._goBack();
-            return false;
+            // return false;
         }
         return true;
-    }
-
-    componentDidMount() {
-
     }
 
     _register = () => {

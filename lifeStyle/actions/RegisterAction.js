@@ -12,7 +12,7 @@ export function performRegisterAction(params) {
         let url = Global.REGISTER;
         NetUtil.postJson(url, params, function (res) {
             if (res.hasOwnProperty('code')) {
-                dispatch(errorRegister(res));
+                dispatch(errorAction(res));
                 Util.showToastCenter(res.error);
             } else {
                 dispatch(successRegister(res));
@@ -24,20 +24,20 @@ export function performRegisterAction(params) {
 
 function performRegister() {
     return {
-        type: types.REGISTER_PERFORM_ACTION
+        type: types.PERFORM_ACTION
     }
 }
 
 function successRegister(result) {
     return {
-        type: types.REGISTER_SUCCESS_ACTION,
+        type: types.REGISTER_ACTION,
         data: result
     }
 }
 
-function errorRegister(result) {
+function errorAction(result) {
     return {
-        type: types.REGISTER_ERROR_ACTION,
+        type: types.ERROR_ACTION,
         data: result
     }
 }

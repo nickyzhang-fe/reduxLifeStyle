@@ -5,6 +5,10 @@
 import React, {Component} from 'react';
 
 var API_ADDRESS = 'https://leancloud.cn:443/1.1';
+var DouB_Api = 'https://api.douban.com/v2/';
+var movie_Top250 = 'movie/top250?';
+var movieDetail = 'https://api.douban.com/v2/movie/subject/';
+
 var GLOBAL = {
     HOST: API_ADDRESS,
     LOGIN: API_ADDRESS + '/login?',

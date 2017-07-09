@@ -10,14 +10,26 @@ const initialState = {
     status: null
 };
 
-export default function login(state = initialState, action){
+export default function movieList(state = initialState, action){
     switch (action.type) {
         case types.PERFORM_ACTION:
             return Object.assign({}, state, {
                 loading: true,
                 status: 'doing'
             });
-        case types.LOGIN_ACTION:
+        case types.HOME_MOVIE_INIT_ACTION:
+            return Object.assign({}, state, {
+                loading: false,
+                status: 'success',
+                data: action.data
+            });
+        case types.HOME_MOVIE_PULL_ACTION:
+            return Object.assign({}, state, {
+                loading: false,
+                status: 'success',
+                data: action.data
+            });
+        case types.HOME_MOVIE_MORE_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
