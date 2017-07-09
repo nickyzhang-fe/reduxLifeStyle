@@ -24,7 +24,7 @@ export function performRegisterAction(params) {
 
 function performRegister() {
     return {
-        type: types.PERFORM_ACTION
+        type: types.REGISTER_PERFORM_ACTION
     }
 }
 

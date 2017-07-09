@@ -12,7 +12,7 @@ const initialState = {
 
 export default function movieList(state = initialState, action){
     switch (action.type) {
-        case types.PERFORM_ACTION:
+        case types.HOME_PERFORM_ACTION:
             return Object.assign({}, state, {
                 loading: true,
                 status: 'doing'

@@ -73,7 +73,6 @@ class Register extends Component {
         const {registerReducer} = this.props;
         if (registerReducer.status === 'success') {
             this._goBack();
-            // return false;
         }
         return true;
     }
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
     const {registerReducer} = state;
-    console.log(registerReducer);
+    // console.log(registerReducer);
     return {
         registerReducer
     }

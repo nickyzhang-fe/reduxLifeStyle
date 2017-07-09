@@ -9,9 +9,10 @@ export function getMovieListAction(pageStart, pageEnd) {
     return (dispatch) => {
         dispatch(performAction());
         let params = 'start=' + pageStart + '&count=' + pageEnd;
-        fetch(NetUtil.DouB_Api + params)
+        fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
             .then((response) => (response.json()))
             .then((res) => {
+                console.log(res);
                 dispatch(MovieList(res))
             })
     }
@@ -19,7 +20,7 @@ export function getMovieListAction(pageStart, pageEnd) {
 
 function performAction() {
     return {
-        type: types.PERFORM_ACTION
+        type: types.HOME_PERFORM_ACTION
     }
 }
 

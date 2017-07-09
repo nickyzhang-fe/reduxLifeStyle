@@ -21,7 +21,7 @@ export function performLoginAction(username, password) {
 
 function performLogin() {
     return {
-        type: types.PERFORM_ACTION
+        type: types.LOGIN_PERFORM_ACTION
     }
 }
 

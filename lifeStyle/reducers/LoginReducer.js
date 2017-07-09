@@ -12,7 +12,7 @@ const initialState = {
 
 export default function login(state = initialState, action){
     switch (action.type) {
-        case types.PERFORM_ACTION:
+        case types.LOGIN_PERFORM_ACTION:
             return Object.assign({}, state, {
                 loading: true,
                 status: 'doing'

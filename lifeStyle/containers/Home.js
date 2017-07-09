@@ -35,6 +35,9 @@ class Home extends Component {
     }
 
     render() {
+        const {homeReducer} = this.props;
+        console.log(this.props);
+        console.log(homeReducer);
         return (
             <View style={styleSheet.container}>
                 <NavigationBar
@@ -178,6 +181,7 @@ const styleSheet = StyleSheet.create({
 
 function mapStateToProps(state) {
     const {homeReducer} = state;
+    console.log(homeReducer);
     return {
         homeReducer
     }
