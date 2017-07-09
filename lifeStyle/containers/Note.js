@@ -3,11 +3,19 @@
  */
 import React, {Component} from 'react';
 import {
-    StyleSheet
+    StyleSheet,
+    View,
+    Text
 } from 'react-native';
 
 class Note extends Component {
-
+    render(){
+        return(
+            <View>
+                <Text>{'首页'}</Text>
+            </View>
+        )
+    }
 }
 
 const styleSheet = StyleSheet.create({

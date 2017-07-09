@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import Util from '../utils/Util';
 import StorageUtil from '../utils/StorageUtil';
+import Tabs from '../containers/Tabs';
 
 import {connect} from 'react-redux';
 import TextButton from '../components/TextButton';
@@ -90,16 +91,15 @@ class Login extends Component {
         )
     }
 
-    shouldComponentUpdate() {
-        console.log('shouldComponentUpdate');
-        return true;
-    }
-
     componentDidUpdate() {
         const {loginReducer} = this.props;
         console.log(loginReducer);
         if (loginReducer.status === 'success') {
-
+            const {navigator} = this.props;
+            navigator.push({
+                name: 'tabs',
+                component: Tabs
+            })
         }
         console.log('componentDidUpdate');
     }
@@ -187,7 +187,6 @@ const styles = StyleSheet.create({
         color: '#FFDE00',
         textAlign: 'right',
     }
-
 });
 
 function mapStateToProps(state) {

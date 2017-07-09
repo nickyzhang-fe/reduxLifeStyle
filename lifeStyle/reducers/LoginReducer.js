@@ -6,7 +6,7 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = {
     loading : false,
-    data:'',
+    data:{},
     status: null
 };
 
@@ -21,13 +21,13 @@ export default function login(state = initialState, action){
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
-                data: action.result
+                data: action.data
             });
         case types.LOGIN_ERROR_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 status: 'failed',
-                data: action.result
+                data: action.data
             });
         default:
             return state;
