@@ -16,7 +16,7 @@ import Util from '../utils/Util';
 import NavigationBar from '../components/NavigationBar';
 import MovieDetail from '../containers/MovieDetail';
 import PullRefreshScrollView from 'react-native-pullrefresh-scrollview';
-import {getMovieListAction} from '../actions/HomeAction';
+import {getMovieListAction, pullRefreshMovieListAction} from '../actions/HomeAction';
 import {connect} from 'react-redux';
 
 class Home extends Component {
@@ -36,8 +36,6 @@ class Home extends Component {
 
     render() {
         const {homeReducer} = this.props;
-        console.log(this.props);
-        console.log(homeReducer);
         return (
             <View style={styleSheet.container}>
                 <NavigationBar
@@ -50,7 +48,7 @@ class Home extends Component {
                         onLoadMore={(PullRefresh) => this.loadMoreRefresh(PullRefresh)}
                         useLoadMore={1} {...props}/>}
                     dataSource={this.state.dataSource}
-                    renderRow={this.renderMovie.bind(this)}/>
+                    renderRow={()=>this.renderMovie()}/>
             </View>
         )
     }
@@ -61,6 +59,8 @@ class Home extends Component {
         if (movie_title === original_title) {
             original_title = '';
         }
+        const {homeReducer} = this.props;
+        console.log(homeReducer);
         return (
             <TouchableOpacity onPress={() => this.goMovieDetail(movie)}>
                 <View style={styleSheet.movieItem}>
@@ -83,12 +83,31 @@ class Home extends Component {
         )
     }
 
+    componentWillUpdate(){
+        const {homeReducer} = this.props;
+        console.log('componentWillUpdate');
+        console.log(homeReducer);
+        console.log(this.props);
+        console.log(homeReducer.data.subjects);
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(homeReducer.data.subjects),
+            load: true
+        })
+    }
+
+    componentDidUpdate(){
+        console.log('componentDidUpdate');
+    }
+
     componentDidMount() {
-        this.getMovieDetail();
+        this.getMovieList();
     }
 
     onRefresh = () => {
-
+        const {navigator, dispatch} = this.props;
+        let pageStart = this.state.pageStart;
+        let pageEnd = this.state.pageEnd;
+        dispatch(pullRefreshMovieListAction(pageStart, pageEnd));
     };
 
     loadMoreRefresh = () => {
@@ -98,7 +117,7 @@ class Home extends Component {
     /*
     * 获取电影列表
     * */
-    getMovieDetail = () => {
+    getMovieList = () => {
         const {navigator, dispatch} = this.props;
         let pageStart = this.state.pageStart;
         let pageEnd = this.state.pageEnd;
