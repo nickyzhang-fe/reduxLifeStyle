@@ -95,6 +95,9 @@ class Login extends Component {
                 component: Tabs
             })
         }
+        if (loginReducer.status === 'failed'){
+            Util.showToastCenter(loginReducer.data.error);
+        }
     }
 
     _login = () => {

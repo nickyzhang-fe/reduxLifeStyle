@@ -53,67 +53,60 @@ class Home extends Component {
         )
     }
 
-    renderMovie(movie) {
-        let original_title = movie.original_title;
-        let movie_title = movie.title;
-        if (movie_title === original_title) {
-            original_title = '';
-        }
+    renderMovie() {
         const {homeReducer} = this.props;
         console.log(homeReducer);
         return (
-            <TouchableOpacity onPress={() => this.goMovieDetail(movie)}>
+            <TouchableOpacity onPress={() => this.goMovieDetail()}>
                 <View style={styleSheet.movieItem}>
                     <View>
-                        <Image source={{uri: movie.images.medium}} style={styles.movieImg}></Image>
+                        <Image source={{uri: homeReducer.data.subjects.images.medium}} style={styleSheet.movieImg}></Image>
                     </View>
                     <View style={styleSheet.movieItemRight}>
                         <Text style={styleSheet.movieTitle}
-                              numberOfLines={1}>{movie_title} &nbsp;&nbsp;{original_title}</Text>
+                              numberOfLines={1}>{homeReducer.data.subjects.title} &nbsp;&nbsp;{homeReducer.data.subjects.original_title}</Text>
                         <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, movie.directors)}</Text>
+                              numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, homeReducer.data.subjects.directors)}</Text>
                         <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, movie.casts)}</Text>
+                              numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, homeReducer.data.subjects.casts)}</Text>
                         <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, movie.genres)}</Text>
-                        <Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + movie.year}</Text>
+                              numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, homeReducer.data.subjects.genres)}</Text>
+                        <Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + homeReducer.data.subjects.year}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
         )
     }
 
-    componentWillUpdate(){
-        const {homeReducer} = this.props;
-        console.log('componentWillUpdate');
-        console.log(homeReducer);
-        console.log(this.props);
-        console.log(homeReducer.data.subjects);
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(homeReducer.data.subjects),
-            load: true
-        })
-    }
-
     componentDidUpdate(){
         console.log('componentDidUpdate');
+        const {homeReducer} = this.props;
+        console.log(homeReducer);
+        console.log(this.props);
+        this.setState({
+            dataSource: homeReducer.dataSource,
+            load: true
+        });
     }
 
     componentDidMount() {
         this.getMovieList();
     }
-
+    /*
+    * 数据刷新
+    * */
     onRefresh = () => {
         const {navigator, dispatch} = this.props;
         let pageStart = this.state.pageStart;
         let pageEnd = this.state.pageEnd;
         dispatch(pullRefreshMovieListAction(pageStart, pageEnd));
     };
-
+    /*
+    * 上拉加载更多
+    * */
     loadMoreRefresh = () => {
 
     };
-
     /*
     * 获取电影列表
     * */
@@ -133,7 +126,6 @@ class Home extends Component {
             component: MovieDetail
         })
     };
-
     /*
      * 数据之间添加 '/'
      * */
