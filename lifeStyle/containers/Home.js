@@ -23,7 +23,6 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        console.log(this.props.homeReducer);
         this.state = {
             username: 'ibinbin',
             movieId: '',
@@ -78,7 +77,6 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.homeReducer.data);
         this.setState({
             dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data)
         })

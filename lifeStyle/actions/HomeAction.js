@@ -12,7 +12,6 @@ export function getMovieListAction(pageStart, pageEnd) {
         fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
             .then((response) => (response.json()))
             .then((res) => {
-                console.log(res);
                 dispatch(MovieList(res))
             })
     }
