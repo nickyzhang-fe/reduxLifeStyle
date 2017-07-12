@@ -36,8 +36,6 @@ class Home extends Component {
     }
 
     render() {
-        const {homeReducer} = this.props;
-        console.log(homeReducer);
         return (
             <View style={styleSheet.container}>
                 <NavigationBar
@@ -50,55 +48,49 @@ class Home extends Component {
                         onLoadMore={(PullRefresh) => this.loadMoreRefresh(PullRefresh)}
                         useLoadMore={1} {...props}/>}
                     dataSource={this.state.dataSource}
-                    renderRow={()=>this.renderMovie()}/>
+                    renderRow={this.renderMovie.bind(this)}
+                    enableEmptySections={true}/>
             </View>
         )
     }
 
-    renderMovie() {
-        const {homeReducer} = this.props;
-        console.log(homeReducer);
+    renderMovie(movie) {
         return (
             <TouchableOpacity onPress={() => this.goMovieDetail()}>
                 <View style={styleSheet.movieItem}>
-                    {/*<View>*/}
-                        {/*<Image source={{uri: homeReducer.data.subjects.images.medium}} style={styleSheet.movieImg}></Image>*/}
-                    {/*</View>*/}
-                    {/*<View style={styleSheet.movieItemRight}>*/}
-                        {/*<Text style={styleSheet.movieTitle}*/}
-                              {/*numberOfLines={1}>{homeReducer.data.subjects.title} &nbsp;&nbsp;{homeReducer.data.subjects.original_title}</Text>*/}
-                        {/*<Text style={styleSheet.movieSummary}*/}
-                              {/*numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, homeReducer.data.subjects.directors)}</Text>*/}
-                        {/*<Text style={styleSheet.movieSummary}*/}
-                              {/*numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, homeReducer.data.subjects.casts)}</Text>*/}
-                        {/*<Text style={styleSheet.movieSummary}*/}
-                              {/*numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, homeReducer.data.subjects.genres)}</Text>*/}
-                        {/*<Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + homeReducer.data.subjects.year}</Text>*/}
-                    {/*</View>*/}
+                    <View>
+                        <Image source={{uri: movie.images.medium}} style={styleSheet.movieImg}></Image>
+                    </View>
+                    <View style={styleSheet.movieItemRight}>
+                        <Text style={styleSheet.movieTitle}
+                              numberOfLines={1}>{movie.title} &nbsp;&nbsp;{movie.original_title}</Text>
+                        <Text style={styleSheet.movieSummary}
+                              numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, movie.directors)}</Text>
+                        <Text style={styleSheet.movieSummary}
+                              numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, movie.casts)}</Text>
+                        <Text style={styleSheet.movieSummary}
+                              numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, movie.genres)}</Text>
+                        <Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + movie.year}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         )
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.homeReducer);
+        console.log(nextProps.homeReducer.data);
         this.setState({
-            dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data.subjects)
+            dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data)
         })
-    }
-
-    componentDidUpdate(){
-        const {homeReducer} = this.props;
-        console.log(homeReducer);
-        console.log(this.props);
     }
 
     componentDidMount() {
         this.getMovieList();
     }
+
     /*
-    * 数据刷新
-    * */
+     * 数据刷新
+     * */
     onRefresh = () => {
         const {navigator, dispatch} = this.props;
         let pageStart = this.state.pageStart;
@@ -106,14 +98,14 @@ class Home extends Component {
         dispatch(pullRefreshMovieListAction(pageStart, pageEnd));
     };
     /*
-    * 上拉加载更多
-    * */
+     * 上拉加载更多
+     * */
     loadMoreRefresh = () => {
 
     };
     /*
-    * 获取电影列表
-    * */
+     * 获取电影列表
+     * */
     getMovieList = () => {
         const {navigator, dispatch} = this.props;
         let pageStart = this.state.pageStart;
@@ -121,8 +113,8 @@ class Home extends Component {
         dispatch(getMovieListAction(pageStart, pageEnd));
     };
     /*
-    * 跳转到详情页
-    * */
+     * 跳转到详情页
+     * */
     goMovieDetail = () => {
         const {navigator} = this.props;
         navigator.push({

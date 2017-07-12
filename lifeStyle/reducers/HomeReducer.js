@@ -15,6 +15,7 @@ const initialState = {
 
 export default function movieList(state = initialState, action){
     console.log(action);
+    console.log(action.data);
     switch (action.type) {
         case types.HOME_PERFORM_ACTION:
             return Object.assign({}, state, {
@@ -30,7 +31,7 @@ export default function movieList(state = initialState, action){
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
-                data: action.data
+                data: action.data.subjects
             });
         case types.HOME_MOVIE_PULL_ACTION:
             return Object.assign({}, state, {
