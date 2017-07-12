@@ -16,7 +16,7 @@ import Util from '../utils/Util';
 import NavigationBar from '../components/NavigationBar';
 import MovieDetail from '../containers/MovieDetail';
 import PullRefreshScrollView from 'react-native-pullrefresh-scrollview';
-import {getMovieListAction, pullRefreshMovieListAction} from '../actions/HomeAction';
+import {getMovieListAction, pullRefreshMovieListAction, loadMoreMovieListAction} from '../actions/HomeAction';
 import {connect} from 'react-redux';
 
 class Home extends Component {
@@ -29,6 +29,7 @@ class Home extends Component {
             title: '豆瓣电影Top250',
             dataSource: this.ds.cloneWithRows(this.props.homeReducer.data),
             load: false,
+            pullRefresh:'',
             pageStart: 0,
             pageEnd: 15
         }
@@ -79,18 +80,29 @@ class Home extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data)
-        })
+        });
+        console.log(nextProps.homeReducer);
+        if (nextProps.homeReducer.operate === 'refresh'){
+            this.state.pullRefresh.onRefreshEnd();
+        }
+        if (nextProps.homeReducer.operate === 'loadMore'){
+            this.state.pullRefresh.onLoadMoreEnd();
+        }
     }
 
     componentDidMount() {
         this.getMovieList();
     }
-
     /*
      * 数据刷新
      * */
-    onRefresh = () => {
+    onRefresh = (PullRefresh) => {
         const {navigator, dispatch} = this.props;
+        this.setState({
+            pageStart: 0,
+            pageEnd: 15,
+            pullRefresh: PullRefresh
+        });
         let pageStart = this.state.pageStart;
         let pageEnd = this.state.pageEnd;
         dispatch(pullRefreshMovieListAction(pageStart, pageEnd));
@@ -98,8 +110,16 @@ class Home extends Component {
     /*
      * 上拉加载更多
      * */
-    loadMoreRefresh = () => {
-
+    loadMoreRefresh = (PullRefresh) => {
+        const {navigator, dispatch} = this.props;
+        let pageStart = this.state.pageStart;
+        let pageEnd = this.state.pageEnd + 15;
+        this.setState({
+            pageStart: pageStart,
+            pageEnd: pageEnd,
+            pullRefresh: PullRefresh
+        });
+        dispatch(loadMoreMovieListAction(pageStart, pageEnd));
     };
     /*
      * 获取电影列表

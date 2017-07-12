@@ -16,6 +16,7 @@ export function getMovieListAction(pageStart, pageEnd) {
             })
     }
 }
+
 export function pullRefreshMovieListAction(pageStart, pageEnd) {
     return (dispatch) => {
         dispatch(performAction());
@@ -23,8 +24,19 @@ export function pullRefreshMovieListAction(pageStart, pageEnd) {
         fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
             .then((response) => (response.json()))
             .then((res) => {
-                console.log(res);
-                dispatch(PullRefresh(res))
+                dispatch(PullRefresh(res));
+            })
+    }
+}
+
+export function loadMoreMovieListAction(pageStart, pageEnd) {
+    return (dispatch) => {
+        dispatch(performAction());
+        let params = 'start=' + pageStart + '&count=' + pageEnd;
+        fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
+            .then((response) => (response.json()))
+            .then((res) => {
+                dispatch(LoadMore(res))
             })
     }
 }

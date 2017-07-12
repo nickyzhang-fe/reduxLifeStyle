@@ -3,14 +3,12 @@
  */
 'use strict';
 import * as types from '../constants/ActionTypes';
-import {
-    ListView
-} from 'react-native'
 
 const initialState = {
     loading : false,
     data:[],
-    status: null
+    status: null,
+    operate: 'init'
 };
 
 export default function movieList(state = initialState, action){
@@ -26,19 +24,22 @@ export default function movieList(state = initialState, action){
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
-                data: action.data.subjects
+                data: action.data.subjects,
+                operate: 'init'
             });
         case types.HOME_MOVIE_PULL_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
-                data: action.data
+                data: action.data.subjects,
+                operate: 'refresh'
             });
         case types.HOME_MOVIE_MORE_ACTION:
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
-                data: action.data
+                data: action.data.subjects,
+                operate: 'loadMore'
             });
         case types.ERROR_ACTION:
             return Object.assign({}, state, {
