@@ -22,12 +22,13 @@ import {connect} from 'react-redux';
 class Home extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        console.log(this.props.homeReducer);
         this.state = {
             username: 'ibinbin',
             movieId: '',
             title: '豆瓣电影Top250',
-            dataSource: ds,
+            dataSource: this.ds.cloneWithRows(this.props.homeReducer.data),
             load: false,
             pageStart: 0,
             pageEnd: 15
@@ -36,6 +37,7 @@ class Home extends Component {
 
     render() {
         const {homeReducer} = this.props;
+        console.log(homeReducer);
         return (
             <View style={styleSheet.container}>
                 <NavigationBar
@@ -59,34 +61,36 @@ class Home extends Component {
         return (
             <TouchableOpacity onPress={() => this.goMovieDetail()}>
                 <View style={styleSheet.movieItem}>
-                    <View>
-                        <Image source={{uri: homeReducer.data.subjects.images.medium}} style={styleSheet.movieImg}></Image>
-                    </View>
-                    <View style={styleSheet.movieItemRight}>
-                        <Text style={styleSheet.movieTitle}
-                              numberOfLines={1}>{homeReducer.data.subjects.title} &nbsp;&nbsp;{homeReducer.data.subjects.original_title}</Text>
-                        <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, homeReducer.data.subjects.directors)}</Text>
-                        <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, homeReducer.data.subjects.casts)}</Text>
-                        <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, homeReducer.data.subjects.genres)}</Text>
-                        <Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + homeReducer.data.subjects.year}</Text>
-                    </View>
+                    {/*<View>*/}
+                        {/*<Image source={{uri: homeReducer.data.subjects.images.medium}} style={styleSheet.movieImg}></Image>*/}
+                    {/*</View>*/}
+                    {/*<View style={styleSheet.movieItemRight}>*/}
+                        {/*<Text style={styleSheet.movieTitle}*/}
+                              {/*numberOfLines={1}>{homeReducer.data.subjects.title} &nbsp;&nbsp;{homeReducer.data.subjects.original_title}</Text>*/}
+                        {/*<Text style={styleSheet.movieSummary}*/}
+                              {/*numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, homeReducer.data.subjects.directors)}</Text>*/}
+                        {/*<Text style={styleSheet.movieSummary}*/}
+                              {/*numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, homeReducer.data.subjects.casts)}</Text>*/}
+                        {/*<Text style={styleSheet.movieSummary}*/}
+                              {/*numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, homeReducer.data.subjects.genres)}</Text>*/}
+                        {/*<Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + homeReducer.data.subjects.year}</Text>*/}
+                    {/*</View>*/}
                 </View>
             </TouchableOpacity>
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.homeReducer);
+        this.setState({
+            dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data.subjects)
+        })
+    }
+
     componentDidUpdate(){
-        console.log('componentDidUpdate');
         const {homeReducer} = this.props;
         console.log(homeReducer);
         console.log(this.props);
-        this.setState({
-            dataSource: homeReducer.dataSource,
-            load: true
-        });
     }
 
     componentDidMount() {

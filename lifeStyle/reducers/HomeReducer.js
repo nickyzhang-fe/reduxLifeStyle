@@ -22,13 +22,15 @@ export default function movieList(state = initialState, action){
                 status: 'doing'
             });
         case types.HOME_MOVIE_INIT_ACTION:
-            var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-            var data = action.data;
-            dataSource = dataSource.cloneWithRows(data);
+            // var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+            // var data = action.data;
+            // console.log(data);
+            // dataSource = dataSource.cloneWithRows(data.subjects);
+            // console.log(dataSource);
             return Object.assign({}, state, {
                 loading: false,
                 status: 'success',
-                dataSource: dataSource
+                data: action.data
             });
         case types.HOME_MOVIE_PULL_ACTION:
             return Object.assign({}, state, {
