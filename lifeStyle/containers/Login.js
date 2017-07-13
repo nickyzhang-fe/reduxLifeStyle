@@ -87,7 +87,6 @@ class Login extends Component {
 
     componentDidUpdate() {
         const {loginReducer} = this.props;
-        console.log(loginReducer);
         if (loginReducer.status === 'success') {
             const {navigator} = this.props;
             navigator.push({

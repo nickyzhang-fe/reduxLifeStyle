@@ -12,7 +12,11 @@ export function getMovieListAction(pageStart, pageEnd) {
         fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
             .then((response) => (response.json()))
             .then((res) => {
-                dispatch(MovieList(res))
+                if (res.hasOwnProperty('code')) {
+                    dispatch(errorAction());
+                } else {
+                    dispatch(MovieList(res));
+                }
             })
     }
 }
@@ -24,7 +28,11 @@ export function pullRefreshMovieListAction(pageStart, pageEnd) {
         fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
             .then((response) => (response.json()))
             .then((res) => {
-                dispatch(PullRefresh(res));
+                if (res.hasOwnProperty('code')) {
+                    dispatch(errorAction());
+                } else {
+                    dispatch(PullRefresh(res));
+                }
             })
     }
 }
@@ -36,7 +44,11 @@ export function loadMoreMovieListAction(pageStart, pageEnd) {
         fetch(NetUtil.DouB_Api + NetUtil.movie_Top250 + params)
             .then((response) => (response.json()))
             .then((res) => {
-                dispatch(LoadMore(res))
+                if (res.hasOwnProperty('code')) {
+                    dispatch(errorAction());
+                } else {
+                    dispatch(LoadMore(res));
+                }
             })
     }
 }

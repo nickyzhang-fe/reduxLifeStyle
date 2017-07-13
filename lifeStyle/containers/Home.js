@@ -55,8 +55,9 @@ class Home extends Component {
     }
 
     renderMovie(movie) {
+        console.log(movie);
         return (
-            <TouchableOpacity onPress={() => this.goMovieDetail()}>
+            <TouchableOpacity onPress={(movie)=>this.goMovieDetail(movie)}>
                 <View style={styleSheet.movieItem}>
                     <View>
                         <Image source={{uri: movie.images.medium}} style={styleSheet.movieImg}></Image>
@@ -78,16 +79,18 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data)
-        });
-        console.log(nextProps.homeReducer);
         if (nextProps.homeReducer.operate === 'refresh'){
             this.state.pullRefresh.onRefreshEnd();
         }
-        if (nextProps.homeReducer.operate === 'loadMore'){
-            this.state.pullRefresh.onLoadMoreEnd();
+        if (nextProps.homeReducer.state === 'failed'){
+            Util.showToastCenter('数据加载失败');
         }
+        this.setState({
+            dataSource: this.ds.cloneWithRows(nextProps.homeReducer.data)
+        });
+        // if (nextProps.homeReducer.operate === 'loadMore'){
+        //     this.state.pullRefresh.onLoadMoreEnd();
+        // }
     }
 
     componentDidMount() {
@@ -133,11 +136,15 @@ class Home extends Component {
     /*
      * 跳转到详情页
      * */
-    goMovieDetail = () => {
+    goMovieDetail = (movie) => {
+        console.log(movie.id);
         const {navigator} = this.props;
         navigator.push({
             name: 'MovieDetail',
-            component: MovieDetail
+            component: MovieDetail,
+            params: {
+                movie:movie.id
+            }
         })
     };
     /*
