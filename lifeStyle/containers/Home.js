@@ -54,24 +54,23 @@ class Home extends Component {
         )
     }
 
-    renderMovie(movie) {
-        console.log(movie);
+    renderMovie(rowData) {
         return (
-            <TouchableOpacity onPress={(movie)=>this.goMovieDetail(movie)}>
+            <TouchableOpacity onPress={()=>this.goMovieDetail(rowData)}>
                 <View style={styleSheet.movieItem}>
                     <View>
-                        <Image source={{uri: movie.images.medium}} style={styleSheet.movieImg}></Image>
+                        <Image source={{uri: rowData.images.medium}} style={styleSheet.movieImg}></Image>
                     </View>
                     <View style={styleSheet.movieItemRight}>
                         <Text style={styleSheet.movieTitle}
-                              numberOfLines={1}>{movie.title} &nbsp;&nbsp;{movie.original_title}</Text>
+                              numberOfLines={1}>{rowData.title} &nbsp;&nbsp;{rowData.original_title}</Text>
                         <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, movie.directors)}</Text>
+                              numberOfLines={1}>{'导演：'} {this.getMovieCasts(1, rowData.directors)}</Text>
                         <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, movie.casts)}</Text>
+                              numberOfLines={1}>{'主演：'} {this.getMovieCasts(1, rowData.casts)}</Text>
                         <Text style={styleSheet.movieSummary}
-                              numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, movie.genres)}</Text>
-                        <Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + movie.year}</Text>
+                              numberOfLines={1}>{'类型：'} {this.getMovieCasts(2, rowData.genres)}</Text>
+                        <Text style={styleSheet.movieSummary} numberOfLines={1}>{'年份：' + rowData.year}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -136,14 +135,13 @@ class Home extends Component {
     /*
      * 跳转到详情页
      * */
-    goMovieDetail = (movie) => {
-        console.log(movie.id);
+    goMovieDetail = (rowData) => {
         const {navigator} = this.props;
         navigator.push({
             name: 'MovieDetail',
             component: MovieDetail,
             params: {
-                movie:movie.id
+                movie:rowData
             }
         })
     };

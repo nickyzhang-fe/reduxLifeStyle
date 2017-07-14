@@ -5,7 +5,9 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Text
+    Text,
+    Image,
+    ScrollView
 } from 'react-native';
 import LoadingView from '../components/LoadingView';
 import LongLine from '../components/LongLine';
@@ -15,23 +17,103 @@ import NavigationBar from '../components/NavigationBar';
 import Util from '../utils/Util';
 
 class MovieDetail extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-
         this.state = {
-
+            movie: this.props.movie,
+            movieDetail: ''
         }
     }
-    render(){
-        return(
+
+    render() {
+        let movieContent = this.state.movie;
+        // let movieImage = this.state.image;
+        let original_title = movieContent.original_title;
+        let movie_title = movieContent.title;
+        if (movie_title === original_title) {
+            movie_title = '';
+        }
+        // let _this = this;
+
+        // var images = [];
+        // var director = [];
+        // if (!Util.isEmpty(this.state.avatar) && !Util.isEmpty(this.state.director)) {
+        //     for (var i = 0; i < this.state.avatar.length; i++) {
+        //         images.push(
+        //             <View key={this.state.avatar[i].avatars.medium} style={styles.movie_detail_view}>
+        //                 <Image style={styles.movie_detail_view_img}
+        //                        source={{uri: this.state.avatar[i].avatars.medium}}></Image>
+        //             </View>
+        //         )
+        //     }
+        //     for (var i = 0; i < this.state.director.length; i++) {
+        //         director.push(
+        //             <View key={this.state.director[i].avatars.medium} style={styles.movie_detail_view}>
+        //                 <Image style={styles.movie_detail_view_img}
+        //                        source={{uri: this.state.director[i].avatars.medium}}></Image>
+        //             </View>
+        //         )
+        //     }
+        // }
+
+        return (
             <View style={styleSheet.container}>
                 <NavigationBar
+                    title={this.state.movie.title}
                     showLeftState={true}
                     onPress={() => this._goBack()}/>
+                <ScrollView>
+                    <View style={[styleSheet.movie_Detail_Bg, {justifyContent: 'center'}]}>
+                        <Text style={styleSheet.movie_fontSize}>{movie_title}&nbsp;{original_title}</Text>
+                    </View>
+                    <View style={styleSheet.movie_Detail_Bg}>
+                        <View>
+                            <Image source={{uri: this.state.movie.images.medium}} style={styleSheet.movie_Detail_Img}></Image>
+                        </View>
+                        <View style={styleSheet.movie_detail_col}>
+                            <Text
+                                style={styleSheet.movieSummary}>{'导演：'}{this.getMovieCasts(1, movieContent.directors)}</Text>
+                            <Text
+                                style={styleSheet.movieSummary}>{'主演：'}{this.getMovieCasts(1, movieContent.casts)}</Text>
+                            <Text
+                                style={styleSheet.movieSummary}>{'类型：'}{this.getMovieCasts(2, movieContent.genres)}</Text>
+                            <Text
+                                style={styleSheet.movieSummary}>{'制片国家/地区：'}{this.getMovieCasts(2, movieContent.countries)}</Text>
+                            <Text
+                                style={styleSheet.movieSummary}>{'又名：'}{this.getMovieCasts(2, movieContent.aka)}</Text>
+                            <Text style={styleSheet.movieSummary}>{'年份：' + movieContent.year}</Text>
+                        </View>
+                    </View>
+
+                    {/*<View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>*/}
+                        {/*<View style={styleSheet.movie_Detail_row}>*/}
+                            {/*<Text style={styleSheet.movie_fontSize_14}>{this.state.title + '剧情简介'}</Text>*/}
+                        {/*</View>*/}
+                        {/*<View style={styleSheet.movie_Detail_row}>*/}
+                            {/*<Text style={styleSheet.movie_Detail_Intro}>&nbsp;&nbsp;{movieContent.summary}</Text>*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
+
+
+                    {/*<View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>*/}
+                        {/*<Text style={styleSheet.movie_fontSize}>{'主演'}</Text>*/}
+                        {/*<View style={styleSheet.movie_detail_view_item}>*/}
+                            {/*{images}*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
+
+                    {/*<View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>*/}
+                        {/*<Text style={styleSheet.movie_fontSize}>{'导演'}</Text>*/}
+                        {/*<View style={styleSheet.movie_detail_view_item}>*/}
+                            {/*{director}*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
+                </ScrollView>
             </View>
         )
     }
-    componentDidMount(){
+
+    componentDidMount() {
         console.log(this.props.movie);
     }
 
