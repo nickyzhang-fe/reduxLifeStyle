@@ -53,6 +53,19 @@ export function loadMoreMovieListAction(pageStart, pageEnd) {
     }
 }
 
+export function getMovieDetailAction(id) {
+    return (dispatch => {
+        dispatch(performAction());
+        fetch(NetUtil.movieDetail + id)
+            .then((response) => (response.json()))
+            .then((responseData) => {
+                if (!responseData.hasOwnProperty('code')) {
+                    dispatch(GetMovieDetail(responseData));
+                }
+            })
+    })
+}
+
 function performAction() {
     return {
         type: types.HOME_PERFORM_ACTION
@@ -80,9 +93,9 @@ function LoadMore(result) {
     }
 }
 
-function GoMovieDetail(result) {
+function GetMovieDetail(result) {
     return {
-        type: types.HOME_MOVIE_GO_ACTION,
+        type: types.HOME_MOVIE_Detail_ACTION,
         data: result
     }
 }

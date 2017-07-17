@@ -14,6 +14,9 @@ import LongLine from '../components/LongLine';
 import TextButton from '../components/TextButton';
 import NavigationBar from '../components/NavigationBar';
 
+import {getMovieDetailAction} from '../actions/HomeAction';
+import {connect} from 'react-redux';
+
 import Util from '../utils/Util';
 
 class MovieDetail extends Component {
@@ -27,6 +30,8 @@ class MovieDetail extends Component {
 
     render() {
         let movieContent = this.state.movie;
+        const {dispatch, homeReducer} = this.props;
+        console.log(homeReducer.detail);
         // let movieImage = this.state.image;
         let original_title = movieContent.original_title;
         let movie_title = movieContent.title;
@@ -113,13 +118,23 @@ class MovieDetail extends Component {
         )
     }
 
+    componentWillUpdate(){
+
+    }
     componentDidMount() {
         console.log(this.props.movie);
+        this.getMovieDetail(this.props.movie.id);
     }
 
     _goBack = () => {
         const {navigator} = this.props;
         Util.goBack(navigator);
+    };
+
+    getMovieDetail = (id) => {
+        const {dispatch} = this.props;
+        console.log(id);
+        dispatch(getMovieDetailAction(id));
     };
     /*
      * 数据之间添加 '/'
@@ -208,4 +223,11 @@ const styleSheet = StyleSheet.create({
     }
 });
 
-export default MovieDetail;
+function mapStateToProps(state) {
+    const {homeReducer} = state;
+    console.log(homeReducer);
+    return {
+        homeReducer
+    }
+}
+export default connect(mapStateToProps)(MovieDetail);

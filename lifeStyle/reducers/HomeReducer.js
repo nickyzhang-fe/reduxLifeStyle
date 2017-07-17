@@ -5,15 +5,15 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-    loading : false,
-    data:[],
+    loading: false,
+    data: [],
     status: null,
-    operate: 'init'
+    operate: 'init',
+    detail: {}
 };
 
-export default function movieList(state = initialState, action){
+export default function movieList(state = initialState, action) {
     console.log(action);
-    console.log(action.data);
     switch (action.type) {
         case types.HOME_PERFORM_ACTION:
             return Object.assign({}, state, {
@@ -40,6 +40,13 @@ export default function movieList(state = initialState, action){
                 status: 'success',
                 data: action.data.subjects,
                 operate: 'loadMore'
+            });
+        case types.HOME_MOVIE_Detail_ACTION:
+            return Object.assign({}, state, {
+                loading: false,
+                status: 'success',
+                detail: action.data,
+                operate: 'movie_detail'
             });
         case types.ERROR_ACTION:
             return Object.assign({}, state, {
