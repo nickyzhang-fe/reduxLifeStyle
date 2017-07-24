@@ -23,43 +23,41 @@ class MovieDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movie: this.props.movie,
-            movieDetail: ''
-        }
+            movie: this.props.movie
+        };
     }
 
+    componentWillMount(){
+        // this.getMovieDetail(this.props.movie.id);
+    }
     render() {
         let movieContent = this.state.movie;
         const {dispatch, homeReducer} = this.props;
-        console.log(homeReducer.detail);
-        // let movieImage = this.state.image;
+        let movieDetail = homeReducer.detail;
+        console.log(movieDetail);
         let original_title = movieContent.original_title;
         let movie_title = movieContent.title;
         if (movie_title === original_title) {
             movie_title = '';
         }
-        // let _this = this;
-
-        // var images = [];
-        // var director = [];
-        // if (!Util.isEmpty(this.state.avatar) && !Util.isEmpty(this.state.director)) {
-        //     for (var i = 0; i < this.state.avatar.length; i++) {
-        //         images.push(
-        //             <View key={this.state.avatar[i].avatars.medium} style={styles.movie_detail_view}>
-        //                 <Image style={styles.movie_detail_view_img}
-        //                        source={{uri: this.state.avatar[i].avatars.medium}}></Image>
-        //             </View>
-        //         )
-        //     }
-        //     for (var i = 0; i < this.state.director.length; i++) {
-        //         director.push(
-        //             <View key={this.state.director[i].avatars.medium} style={styles.movie_detail_view}>
-        //                 <Image style={styles.movie_detail_view_img}
-        //                        source={{uri: this.state.director[i].avatars.medium}}></Image>
-        //             </View>
-        //         )
-        //     }
-        // }
+        var images = [];
+        var director = [];
+        if (!Util.isEmpty(movieDetail.casts) && !Util.isEmpty(movieDetail.director)) {
+            for (var i = 0; i < movieDetail.casts.length; i++) {
+                images.push(
+                    <View key={movieDetail.casts[i].avatars.medium} style={styleSheet.movie_detail_view}>
+                        <Image style={styleSheet.movie_detail_view_img} source={{uri: movieDetail.casts[i].avatars.medium}}></Image>
+                    </View>
+                )
+            }
+            for (var i = 0; i < movieDetail.director.length; i++) {
+                director.push(
+                    <View key={movieDetail.director[i].avatars.medium} style={styleSheet.movie_detail_view}>
+                        <Image style={styleSheet.movie_detail_view_img} source={{uri: movieDetail.director[i].avatars.medium}}></Image>
+                    </View>
+                )
+            }
+        }
 
         return (
             <View style={styleSheet.container}>
@@ -83,36 +81,36 @@ class MovieDetail extends Component {
                             <Text
                                 style={styleSheet.movieSummary}>{'类型：'}{this.getMovieCasts(2, movieContent.genres)}</Text>
                             <Text
-                                style={styleSheet.movieSummary}>{'制片国家/地区：'}{this.getMovieCasts(2, movieContent.countries)}</Text>
+                                style={styleSheet.movieSummary}>{'制片国家/地区：'}{this.getMovieCasts(2, movieDetail.countries)}</Text>
                             <Text
-                                style={styleSheet.movieSummary}>{'又名：'}{this.getMovieCasts(2, movieContent.aka)}</Text>
+                                style={styleSheet.movieSummary}>{'又名：'}{this.getMovieCasts(2, movieDetail.aka)}</Text>
                             <Text style={styleSheet.movieSummary}>{'年份：' + movieContent.year}</Text>
                         </View>
                     </View>
 
-                    {/*<View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>*/}
-                        {/*<View style={styleSheet.movie_Detail_row}>*/}
-                            {/*<Text style={styleSheet.movie_fontSize_14}>{this.state.title + '剧情简介'}</Text>*/}
-                        {/*</View>*/}
-                        {/*<View style={styleSheet.movie_Detail_row}>*/}
-                            {/*<Text style={styleSheet.movie_Detail_Intro}>&nbsp;&nbsp;{movieContent.summary}</Text>*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
+                    <View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>
+                        <View style={styleSheet.movie_Detail_row}>
+                            <Text style={styleSheet.movie_fontSize_14}>{movieContent.title}&nbsp;&nbsp;{'剧情简介'}</Text>
+                        </View>
+                        <View style={styleSheet.movie_Detail_row}>
+                            <Text style={styleSheet.movie_Detail_Intro}>&nbsp;&nbsp;{movieDetail.summary}</Text>
+                        </View>
+                    </View>
 
 
-                    {/*<View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>*/}
-                        {/*<Text style={styleSheet.movie_fontSize}>{'主演'}</Text>*/}
-                        {/*<View style={styleSheet.movie_detail_view_item}>*/}
-                            {/*{images}*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
+                    <View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>
+                        <Text style={styleSheet.movie_fontSize}>{'主演'}</Text>
+                        <View style={styleSheet.movie_detail_view_item}>
+                            {images}
+                        </View>
+                    </View>
 
-                    {/*<View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>*/}
-                        {/*<Text style={styleSheet.movie_fontSize}>{'导演'}</Text>*/}
-                        {/*<View style={styleSheet.movie_detail_view_item}>*/}
-                            {/*{director}*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
+                    <View style={[styleSheet.movie_Detail_Bg, {flexDirection: 'column'}]}>
+                        <Text style={styleSheet.movie_fontSize}>{'导演'}</Text>
+                        <View style={styleSheet.movie_detail_view_item}>
+                            {director}
+                        </View>
+                    </View>
                 </ScrollView>
             </View>
         )
