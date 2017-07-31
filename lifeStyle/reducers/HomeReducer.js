@@ -13,7 +13,6 @@ const initialState = {
 };
 
 export default function movieList(state = initialState, action) {
-    console.log(action);
     switch (action.type) {
         case types.HOME_PERFORM_ACTION:
             return Object.assign({}, state, {

@@ -35,6 +35,7 @@ class Login extends Component {
 
     render() {
         const {loginReducer} = this.props;
+        console.log(this.props);
         return (
             <View style={styles.container}>
                 <Image source={require('../imgs/logo.png')} style={styles.image}/>
@@ -101,6 +102,7 @@ class Login extends Component {
 
     _login = () => {
         const {navigator, dispatch} = this.props;
+        console.log(this.props);
         let username = this.state.username;
         let password = this.state.password;
         if (Util.isEmpty(username)) {

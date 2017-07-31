@@ -42,7 +42,10 @@ class MovieDetail extends Component {
         }
         var images = [];
         var director = [];
-        if (!Util.isEmpty(movieDetail.casts) && !Util.isEmpty(movieDetail.director)) {
+        console.log(movieDetail.casts);
+        console.log(movieDetail.directors);
+        if (!Util.isEmpty(movieDetail.casts) && !Util.isEmpty(movieDetail.directors)) {
+            console.log('执行到这里');
             for (var i = 0; i < movieDetail.casts.length; i++) {
                 images.push(
                     <View key={movieDetail.casts[i].avatars.medium} style={styleSheet.movie_detail_view}>
@@ -50,10 +53,10 @@ class MovieDetail extends Component {
                     </View>
                 )
             }
-            for (var i = 0; i < movieDetail.director.length; i++) {
+            for (var i = 0; i < movieDetail.directors.length; i++) {
                 director.push(
-                    <View key={movieDetail.director[i].avatars.medium} style={styleSheet.movie_detail_view}>
-                        <Image style={styleSheet.movie_detail_view_img} source={{uri: movieDetail.director[i].avatars.medium}}></Image>
+                    <View key={movieDetail.directors[i].avatars.medium} style={styleSheet.movie_detail_view}>
+                        <Image style={styleSheet.movie_detail_view_img} source={{uri: movieDetail.directors[i].avatars.medium}}></Image>
                     </View>
                 )
             }
@@ -111,6 +114,8 @@ class MovieDetail extends Component {
                             {director}
                         </View>
                     </View>
+                    <LoadingView
+                        showLoading={homeReducer.loading}/>
                 </ScrollView>
             </View>
         )
@@ -120,7 +125,6 @@ class MovieDetail extends Component {
 
     }
     componentDidMount() {
-        console.log(this.props.movie);
         this.getMovieDetail(this.props.movie.id);
     }
 
@@ -131,7 +135,6 @@ class MovieDetail extends Component {
 
     getMovieDetail = (id) => {
         const {dispatch} = this.props;
-        console.log(id);
         dispatch(getMovieDetailAction(id));
     };
     /*
@@ -215,15 +218,14 @@ const styleSheet = StyleSheet.create({
         flexDirection: 'column',
     },
     movie_detail_view_img: {
-        height: 120,
-        width: 90,
+        height: 520,
+        width: Util.getScreenWidth() - 30,
         margin: 2
     }
 });
 
 function mapStateToProps(state) {
     const {homeReducer} = state;
-    console.log(homeReducer);
     return {
         homeReducer
     }

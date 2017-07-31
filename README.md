@@ -2,7 +2,6 @@
 
 > 前言：本文将着重梳理清 redux 使用中的各个关键词的概念，以加深对redux的理解
 > [本文地址]()
-> 
 > [项目地址](https://github.com/5ibinbin/reduxLifeStyle)
 
 ##### redux是什么
@@ -60,6 +59,7 @@
 - [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 	- npm install react-native-vector-icons --save
 	- react-native link react-native-vector-icons 
+- [react-native-image-viewer](https://github.com/ascoders/react-native-image-viewer)
 
 ##### 参考文章
 [Redux 中文文档](http://cn.redux.js.org/index.html)
